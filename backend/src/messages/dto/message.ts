@@ -12,8 +12,5 @@ export class Message {
   creationDate: Date;
 
   @Field()
-  senderName: string
-
-  @Field()
   senderID: string
 }

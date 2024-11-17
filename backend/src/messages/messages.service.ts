@@ -41,14 +41,43 @@ export class MessagesService {
     return this.messages.find((message) => message.id === id);
   }
 
-  async findAll(messagesArgs: MessagesArgs): Promise<Message[]> {
+  async findAll(messagesArgs: MessagesArgs) {
     const cursor = messagesArgs.before
       ? new Date(decode(messagesArgs.before))
       : new Date();
 
-    return this.messages
-      .sort((a, b) => b.creationDate.getTime() - a.creationDate.getTime())
-      .filter((message) => message.creationDate < cursor);
+    const sortedList = this.messages.sort(
+      (b, a) => b.creationDate.getTime() - a.creationDate.getTime(),
+    );
+
+    const filtered = sortedList.filter(
+      (message) => message.creationDate <= cursor,
+    );
+
+    const result = filtered.slice(
+      filtered.length >= messagesArgs.last
+        ? filtered.length - messagesArgs.last
+        : 0,
+      filtered.length,
+    );
+
+    let startCursor,
+      endCursor,
+      hasPreviousPage = false,
+      hasNextPage = false;
+
+    if (result.length > 0) {
+      const startDate = result[0].creationDate;
+      const endDate = result[result.length - 1].creationDate;
+      startCursor = encode(startDate.toISOString());
+      endCursor = encode(endDate.toISOString());
+
+      hasPreviousPage = sortedList.some(
+        (message) => message.creationDate < endDate,
+      );
+    }
+
+    return { result, hasPreviousPage, startCursor, endCursor, hasNextPage };
   }
 
   async remove(id: string): Promise<string> {

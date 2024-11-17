@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<63f053035ae76632340f105de513d3a8>>
+ * @generated SignedSource<<d557ca871ea88741717c23b60340864d>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -38,7 +38,7 @@ return {
       "name": "chatID"
     },
     {
-      "defaultValue": 10,
+      "defaultValue": 20,
       "kind": "LocalArgument",
       "name": "count"
     },
@@ -162,6 +162,6 @@ return {
 };
 })();
 
-(node as any).hash = "9bdc8dd139b4d631ffca90abf0250fe5";
+(node as any).hash = "93b98062b0655b492fdf280840722a6b";
 
 export default node;

@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<78c14a914129a3aebd94385be59b8b4a>>
+ * @generated SignedSource<<213e2e39c568192895769b367dfeed46>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -49,7 +49,7 @@ v4 = [
   {
     "kind": "Literal",
     "name": "last",
-    "value": 10
+    "value": 20
   }
 ];
 return {
@@ -87,7 +87,13 @@ return {
         "name": "viewer",
         "plural": false,
         "selections": [
-          (v3/*: any*/)
+          {
+            "alias": null,
+            "args": null,
+            "kind": "ScalarField",
+            "name": "currentUserID",
+            "storageKey": null
+          }
         ],
         "storageKey": null
       },
@@ -236,12 +242,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "8ec4d6591a743c9d708290cee78095c5",
+    "cacheID": "38a255b5f72857cf42c0f68d38cf965d",
     "id": null,
     "metadata": {},
     "name": "MessengerPageQuery",
     "operationKind": "query",
-    "text": "query MessengerPageQuery(\n  $chatID: ID!\n) {\n  ...MessagesList_meta_1lk4yB\n  ...MessagesList_messages_1lk4yB\n}\n\nfragment MessageItem_data on Message {\n  id\n  text\n  senderID\n  creationDate\n}\n\nfragment MessagesList_messages_1lk4yB on Query {\n  messages(last: 10, chatID: $chatID) {\n    edges {\n      cursor\n      node {\n        ...MessageItem_data\n        id\n        __typename\n      }\n    }\n    pageInfo {\n      hasPreviousPage\n      startCursor\n    }\n  }\n}\n\nfragment MessagesList_meta_1lk4yB on Query {\n  viewer {\n    id\n  }\n  chat(id: $chatID) {\n    participants {\n      id\n      name\n    }\n    id\n  }\n}\n"
+    "text": "query MessengerPageQuery(\n  $chatID: ID!\n) {\n  ...MessagesList_meta_1lk4yB\n  ...MessagesList_messages_1lk4yB\n}\n\nfragment MessageItem_data on Message {\n  id\n  text\n  senderID\n  creationDate\n}\n\nfragment MessagesList_messages_1lk4yB on Query {\n  messages(last: 20, chatID: $chatID) {\n    edges {\n      cursor\n      node {\n        ...MessageItem_data\n        id\n        __typename\n      }\n    }\n    pageInfo {\n      hasPreviousPage\n      startCursor\n    }\n  }\n}\n\nfragment MessagesList_meta_1lk4yB on Query {\n  viewer {\n    currentUserID\n  }\n  chat(id: $chatID) {\n    participants {\n      id\n      name\n    }\n    id\n  }\n}\n"
   }
 };
 })();

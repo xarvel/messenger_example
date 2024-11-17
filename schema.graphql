@@ -5,13 +5,12 @@ type Message {
   id: ID!
   text: String!
   creationDate: Date!
-  senderName: String!
   senderID: String!
 }
 
 type PageInfo {
-  startCursor: String!
-  endCursor: String!
+  startCursor: String
+  endCursor: String
   hasNextPage: Boolean!
   hasPreviousPage: Boolean!
 }
@@ -45,7 +44,7 @@ type Chat {
 }
 
 type Viewer {
-  id: String!
+  currentUserID: String!
 }
 
 # Date custom scalar type

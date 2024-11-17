@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<c0d5628f4b57d028c7bc68c3f6202d55>>
+ * @generated SignedSource<<65cce98235d00aa03e14f46b368900eb>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -31,7 +31,7 @@ var v0 = [
     "name": "chatID"
   },
   {
-    "defaultValue": 10,
+    "defaultValue": 20,
     "kind": "LocalArgument",
     "name": "count"
   },
@@ -207,16 +207,16 @@ return {
     ]
   },
   "params": {
-    "cacheID": "4c885b626508c23c377d2fb86df20514",
+    "cacheID": "54cf0db38ad1ffa7105b9028ae4409a1",
     "id": null,
     "metadata": {},
     "name": "MessagesListPaginationQuery",
     "operationKind": "query",
-    "text": "query MessagesListPaginationQuery(\n  $chatID: ID!\n  $count: Int = 10\n  $cursor: String\n) {\n  ...MessagesList_messages_45fdEv\n}\n\nfragment MessageItem_data on Message {\n  id\n  text\n  senderID\n  creationDate\n}\n\nfragment MessagesList_messages_45fdEv on Query {\n  messages(last: $count, before: $cursor, chatID: $chatID) {\n    edges {\n      cursor\n      node {\n        ...MessageItem_data\n        id\n        __typename\n      }\n    }\n    pageInfo {\n      hasPreviousPage\n      startCursor\n    }\n  }\n}\n"
+    "text": "query MessagesListPaginationQuery(\n  $chatID: ID!\n  $count: Int = 20\n  $cursor: String\n) {\n  ...MessagesList_messages_45fdEv\n}\n\nfragment MessageItem_data on Message {\n  id\n  text\n  senderID\n  creationDate\n}\n\nfragment MessagesList_messages_45fdEv on Query {\n  messages(last: $count, before: $cursor, chatID: $chatID) {\n    edges {\n      cursor\n      node {\n        ...MessageItem_data\n        id\n        __typename\n      }\n    }\n    pageInfo {\n      hasPreviousPage\n      startCursor\n    }\n  }\n}\n"
   }
 };
 })();
 
-(node as any).hash = "9bdc8dd139b4d631ffca90abf0250fe5";
+(node as any).hash = "93b98062b0655b492fdf280840722a6b";
 
 export default node;

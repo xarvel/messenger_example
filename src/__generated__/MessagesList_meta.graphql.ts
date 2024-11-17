@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<f2ca1546affff0f4e4f4a48e5e373683>>
+ * @generated SignedSource<<55e6e8d0ec662bfdb6158de3b1e515a9>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -18,7 +18,7 @@ export type MessagesList_meta$data = {
     }>;
   };
   readonly viewer: {
-    readonly id: string;
+    readonly currentUserID: string;
   };
   readonly " $fragmentType": "MessagesList_meta";
 };
@@ -27,15 +27,7 @@ export type MessagesList_meta$key = {
   readonly " $fragmentSpreads": FragmentRefs<"MessagesList_meta">;
 };
 
-const node: ReaderFragment = (function(){
-var v0 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
-  "name": "id",
-  "storageKey": null
-};
-return {
+const node: ReaderFragment = {
   "argumentDefinitions": [
     {
       "defaultValue": null,
@@ -55,7 +47,13 @@ return {
       "name": "viewer",
       "plural": false,
       "selections": [
-        (v0/*: any*/)
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "currentUserID",
+          "storageKey": null
+        }
       ],
       "storageKey": null
     },
@@ -81,7 +79,13 @@ return {
           "name": "participants",
           "plural": true,
           "selections": [
-            (v0/*: any*/),
+            {
+              "alias": null,
+              "args": null,
+              "kind": "ScalarField",
+              "name": "id",
+              "storageKey": null
+            },
             {
               "alias": null,
               "args": null,
@@ -99,8 +103,7 @@ return {
   "type": "Query",
   "abstractKey": null
 };
-})();
 
-(node as any).hash = "a17687106bbb38591d05761cd3e31382";
+(node as any).hash = "f1456b69522cda123a7c768ca0fc12ce";
 
 export default node;

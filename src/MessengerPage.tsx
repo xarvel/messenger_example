@@ -43,7 +43,7 @@ export const MessengerPage: FC<MessengerChatProps> = ({ chatID }) => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <MessagesList messagesRef={query} metaRef={query} chunkSize={10} />
+      <MessagesList messagesRef={query} metaRef={query} chunkSize={20} />
       <MessageInput connectionID={connectionID} chatID={chatID} />
     </SafeAreaView>
   );

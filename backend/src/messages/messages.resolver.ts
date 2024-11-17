@@ -11,7 +11,7 @@ import {
 import { PubSub } from 'graphql-subscriptions';
 import { SendMessageInput } from './dto/send-message-input';
 import { MessagesArgs } from './dto/messages.args';
-import { Message } from './models/message.model';
+import { Message } from './dto/message';
 import { encode, MessagesService } from './messages.service';
 import { MessageEdge, MessageConnection } from './dto/message-connection';
 import { ChatsService } from '../chats/chats.service';
@@ -55,20 +55,11 @@ export class MessagesResolver {
       throw new ForbiddenException();
     }
 
-    const users = await Promise.all(
-      chat.participants.map((id) => this.usersService.findOneById(id)),
-    );
+    const { result, hasPreviousPage, endCursor, startCursor, hasNextPage } =
+      await this.messagesService.findAll(messagesArgs);
 
-    const userNamesMap = users.reduce((acc, currentValue) => {
-      acc[currentValue.id] = currentValue.name;
-      return acc;
-    }, {});
-
-    const messages = await this.messagesService.findAll(messagesArgs);
-
-    const edges = messages.map((message) => {
+    const edges = result.map((message) => {
       const messageNode: Message = {
-        senderName: userNamesMap[message.senderID],
         id: message.id,
         creationDate: message.creationDate,
         text: message.text,
@@ -84,10 +75,10 @@ export class MessagesResolver {
     return {
       edges,
       pageInfo: {
-        hasNextPage: true,
-        hasPreviousPage: true,
-        startCursor: '',
-        endCursor: '',
+        hasNextPage,
+        hasPreviousPage,
+        startCursor,
+        endCursor,
       },
     };
   }
@@ -120,7 +111,6 @@ export class MessagesResolver {
     });
 
     const messageNode: Message = {
-      senderName: user.name,
       id: message.id,
       creationDate: message.creationDate,
       text: message.text,

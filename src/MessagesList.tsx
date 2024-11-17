@@ -23,7 +23,7 @@ const messagesQuery = graphql`
   @argumentDefinitions(
     chatID: { type: "ID!" }
     cursor: { type: "String" }
-    count: { type: "Int", defaultValue: 10 }
+    count: { type: "Int", defaultValue: 20 }
   )
   @refetchable(queryName: "MessagesListPaginationQuery") {
     messages(
@@ -45,7 +45,7 @@ const metaInfoQuery = graphql`
   fragment MessagesList_meta on Query
   @argumentDefinitions(chatID: { type: "ID!" }) {
     viewer {
-      id
+      currentUserID
     }
     chat(id: $chatID) {
       participants {
@@ -64,6 +64,7 @@ export const MessagesList: FC<MessagesListProps> = ({
   const { data, refetch, loadPrevious, hasPrevious } =
     usePaginationFragment(messagesQuery, messagesRef);
 
+  console.log('hasPrevious', hasPrevious);
   const { viewer, chat } = useFragment(
     metaInfoQuery,
     metaRef,
@@ -78,7 +79,7 @@ export const MessagesList: FC<MessagesListProps> = ({
   );
 
   const getSide = (userID: string) =>
-    userID !== viewer.id ? "left" : "right";
+    userID !== viewer.currentUserID ? "left" : "right";
 
   const getName = (userID: string) => NamesMap[userID];
 
@@ -104,7 +105,7 @@ export const MessagesList: FC<MessagesListProps> = ({
         });
       }}
       keyExtractor={(item) => item.cursor}
-      data={data.messages.edges}
+      data={data.messages.edges.slice().reverse()}
       renderItem={({ item }) => (
         <MessageItem
           getSide={getSide}

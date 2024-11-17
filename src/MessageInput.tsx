@@ -19,7 +19,7 @@ export const MessageInput: FC<MessageInputProps> = ({
       $connections: [ID!]!
     ) {
       sendMessage(input: $input) {
-        messageEdge @prependEdge(connections: $connections) {
+        messageEdge @appendEdge(connections: $connections) {
           cursor
           node {
             ...MessageItem_data
@@ -40,12 +40,7 @@ export const MessageInput: FC<MessageInputProps> = ({
         },
         connections: [connectionID],
       },
-      onError: (error) => {
-        console.log("error", error);
-      },
-      onUnsubscribe: () => {},
-      onCompleted: (response, errors) => {
-        console.log("response", response);
+      onCompleted: () => {
         setText("");
       },
     });

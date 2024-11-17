@@ -1,5 +1,5 @@
 import { Edge, Paginated } from './paginated';
-import { Message } from '../models/message.model';
+import { Message } from './message';
 import { ObjectType } from '@nestjs/graphql';
 
 @ObjectType()

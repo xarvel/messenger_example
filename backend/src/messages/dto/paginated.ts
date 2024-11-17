@@ -1,4 +1,4 @@
-import { Field, ObjectType} from '@nestjs/graphql';
+import { Field, ObjectType } from '@nestjs/graphql';
 import { Type } from '@nestjs/common';
 
 export interface IEdgeType<T> {
@@ -13,9 +13,9 @@ export interface IPaginatedType<T> {
 
 @ObjectType()
 export class PageInfo {
-  @Field()
+  @Field({ nullable: true })
   startCursor: string;
-  @Field()
+  @Field({ nullable: true })
   endCursor: string;
   @Field()
   hasNextPage: boolean;
