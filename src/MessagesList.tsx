@@ -64,7 +64,7 @@ export const MessagesList: FC<MessagesListProps> = ({
   const { data, refetch, loadPrevious, hasPrevious } =
     usePaginationFragment(messagesQuery, messagesRef);
 
-  console.log('hasPrevious', hasPrevious);
+  console.log("hasPrevious", hasPrevious);
   const { viewer, chat } = useFragment(
     metaInfoQuery,
     metaRef,

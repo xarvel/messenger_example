@@ -22,7 +22,7 @@ export const useMessageAdded = (
             $connections: [ID!]!
           ) {
             messageAdded(chatID: $chatID)
-              @prependEdge(connections: $connections) {
+              @appendEdge(connections: $connections) {
               cursor
               node {
                 ...MessageItem_data
