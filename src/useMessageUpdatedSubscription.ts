@@ -1,9 +1,10 @@
 import { graphql, useSubscription } from "react-relay";
 import { useMemo } from "react";
 import { GraphQLSubscriptionConfig } from "relay-runtime";
+import { useMessageUpdatedSubscriptionSubscription } from "./__generated__/useMessageUpdatedSubscriptionSubscription.graphql";
 
 export const useMessageUpdatedSubscription = (chatID: string) => {
-  const config: GraphQLSubscriptionConfig<any> = useMemo(
+  const config: GraphQLSubscriptionConfig<useMessageUpdatedSubscriptionSubscription> = useMemo(
     () => ({
       variables: {
         chatID,
