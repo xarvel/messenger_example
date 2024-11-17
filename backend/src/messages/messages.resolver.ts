@@ -178,9 +178,7 @@ export class MessagesResolver {
       .filter((participant) => participant !== user.id)
       .forEach((userID) => {
         pubSub.publish('messageRemoved', {
-          messageRemoved: {
-            messageIDs: [removedMessageID],
-          },
+          messageRemoved: [removedMessageID],
           chatID: chat.id,
           userID,
         });
@@ -200,7 +198,7 @@ export class MessagesResolver {
   }
 
   @UseGuards(new AuthGuard())
-  @Subscription((returns) => MessageRemovedResponse, {
+  @Subscription((returns) => [ID], {
     filter: (payload, variables, context) => {
       console.log(payload, variables, context);
       return true;

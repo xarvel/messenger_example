@@ -19,9 +19,7 @@ export const useMessageRemovedSubscription = (
             $chatID: String!
             $connections: [ID!]!
           ) {
-            messageRemoved(chatID: $chatID) {
-              messageIDs @deleteEdge(connections: $connections)
-            }
+            messageRemoved(chatID: $chatID) @deleteEdge(connections: $connections)
           }
         `,
       }),

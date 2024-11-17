@@ -35,10 +35,6 @@ type RemoveMessageResponse {
   messageID: ID!
 }
 
-type MessageRemovedResponse {
-  messageIDs: [ID!]!
-}
-
 type Viewer {
   id: String!
 }
@@ -53,7 +49,7 @@ type Query {
 
 type Mutation {
   sendMessage(input: SendMessageInput!): SendMessageResponse!
-  removeMessage(id: String!): RemoveMessageResponse!
+  removeMessage(id: ID!): RemoveMessageResponse!
 }
 
 input SendMessageInput {
@@ -63,6 +59,6 @@ input SendMessageInput {
 
 type Subscription {
   messageAdded(chatID: String!): MessageEdge!
-  messageRemoved(chatID: String!): MessageRemovedResponse!
+  messageRemoved(chatID: String!): [ID!]!
   messageUpdated(chatID: String!): Message!
 }

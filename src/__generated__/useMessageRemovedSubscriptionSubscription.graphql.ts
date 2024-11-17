@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<da0369abef35a753324c269c0c045867>>
+ * @generated SignedSource<<de1801f0607aa2c34fbe40bc7667fd94>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -14,9 +14,7 @@ export type useMessageRemovedSubscriptionSubscription$variables = {
   connections: ReadonlyArray<string>;
 };
 export type useMessageRemovedSubscriptionSubscription$data = {
-  readonly messageRemoved: {
-    readonly messageIDs: ReadonlyArray<string>;
-  };
+  readonly messageRemoved: ReadonlyArray<string | null | undefined>;
 };
 export type useMessageRemovedSubscriptionSubscription = {
   response: useMessageRemovedSubscriptionSubscription$data;
@@ -45,9 +43,9 @@ v1 = [
 ],
 v2 = {
   "alias": null,
-  "args": null,
+  "args": (v1/*: any*/),
   "kind": "ScalarField",
-  "name": "messageIDs",
+  "name": "messageRemoved",
   "storageKey": null
 };
 return {
@@ -57,18 +55,7 @@ return {
     "metadata": null,
     "name": "useMessageRemovedSubscriptionSubscription",
     "selections": [
-      {
-        "alias": null,
-        "args": (v1/*: any*/),
-        "concreteType": "MessageRemovedResponse",
-        "kind": "LinkedField",
-        "name": "messageRemoved",
-        "plural": false,
-        "selections": [
-          (v2/*: any*/)
-        ],
-        "storageKey": null
-      }
+      (v2/*: any*/)
     ],
     "type": "Subscription",
     "abstractKey": null
@@ -79,47 +66,36 @@ return {
     "kind": "Operation",
     "name": "useMessageRemovedSubscriptionSubscription",
     "selections": [
+      (v2/*: any*/),
       {
         "alias": null,
         "args": (v1/*: any*/),
-        "concreteType": "MessageRemovedResponse",
-        "kind": "LinkedField",
+        "filters": null,
+        "handle": "deleteEdge",
+        "key": "",
+        "kind": "ScalarHandle",
         "name": "messageRemoved",
-        "plural": false,
-        "selections": [
-          (v2/*: any*/),
+        "handleArgs": [
           {
-            "alias": null,
-            "args": null,
-            "filters": null,
-            "handle": "deleteEdge",
-            "key": "",
-            "kind": "ScalarHandle",
-            "name": "messageIDs",
-            "handleArgs": [
-              {
-                "kind": "Variable",
-                "name": "connections",
-                "variableName": "connections"
-              }
-            ]
+            "kind": "Variable",
+            "name": "connections",
+            "variableName": "connections"
           }
-        ],
-        "storageKey": null
+        ]
       }
     ]
   },
   "params": {
-    "cacheID": "01e18784625c7f40a623a41791059df1",
+    "cacheID": "a57dc59b0bb1543772dda2d674e91b59",
     "id": null,
     "metadata": {},
     "name": "useMessageRemovedSubscriptionSubscription",
     "operationKind": "subscription",
-    "text": "subscription useMessageRemovedSubscriptionSubscription(\n  $chatID: String!\n) {\n  messageRemoved(chatID: $chatID) {\n    messageIDs\n  }\n}\n"
+    "text": "subscription useMessageRemovedSubscriptionSubscription(\n  $chatID: String!\n) {\n  messageRemoved(chatID: $chatID)\n}\n"
   }
 };
 })();
 
-(node as any).hash = "e285efdb4944dd6f9c52c4d7054cf1c7";
+(node as any).hash = "4c9d11e84b7d4ef6c8f1ca0eaa50e644";
 
 export default node;
