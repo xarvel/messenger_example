@@ -18,7 +18,6 @@ import { ChatsService } from '../chats/chats.service';
 import { SendMessageResponse } from './dto/send-message-response';
 import { UsersService } from '../users/users.service';
 import { RemoveMessageResponse } from './dto/remove-message-response';
-import { MessageRemovedResponse } from './dto/message-removed-response';
 import { UseGuards } from '@nestjs/common';
 import { AuthGuard } from '../auth/auth.guard';
 

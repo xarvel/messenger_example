@@ -3,7 +3,7 @@ import { SafeAreaView, StyleSheet } from "react-native";
 import { MessageInput } from "@/src/MessageInput";
 import { MessagesList } from "@/src/MessagesList";
 import { graphql, useLazyLoadQuery, ConnectionHandler } from "react-relay";
-import { MessengerChatQuery } from "@/src/__generated__/MessengerChatQuery.graphql";
+import { MessengerPageQuery } from "./__generated__/MessengerPageQuery.graphql";
 import { useMessageAddedSubscription } from "@/src/useMessageAddedSubscription";
 import { useMessageRemovedSubscription } from "@/src/useMessageRemovedSubscription";
 import { useMessageUpdatedSubscription } from "@/src/useMessageUpdatedSubscription";
@@ -22,7 +22,7 @@ export const MessengerPage: FC<MessengerChatProps> = ({ chatID }) => {
     },
   );
 
-  const query = useLazyLoadQuery<MessengerChatQuery>(
+  const query = useLazyLoadQuery<MessengerPageQuery>(
     graphql`
       query MessengerPageQuery($chatID: ID!) {
         viewer {
