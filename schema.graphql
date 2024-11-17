@@ -1,7 +1,6 @@
 # Indicates exactly one field must be supplied and this field must not be `null`.
 directive @oneOf on INPUT_OBJECT
 
-# message
 type Message {
   id: ID!
   text: String!
@@ -22,7 +21,7 @@ type MessageEdge {
   node: Message!
 }
 
-type PaginatedMessage {
+type MessageConnection {
   edges: [MessageEdge!]!
   pageInfo: PageInfo!
 }
@@ -35,6 +34,16 @@ type RemoveMessageResponse {
   messageID: ID!
 }
 
+type User {
+  id: ID!
+  name: String!
+}
+
+type Chat {
+  id: ID!
+  participants: [User!]!
+}
+
 type Viewer {
   id: String!
 }
@@ -44,7 +53,8 @@ scalar Date
 
 type Query {
   viewer: Viewer!
-  messages(last: Int! = 0, before: String, chatID: ID!): PaginatedMessage!
+  chat(id: ID!): Chat!
+  messages(last: Int! = 0, before: String, chatID: ID!): MessageConnection!
 }
 
 type Mutation {

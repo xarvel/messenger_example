@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<ed6b292b9950c0a7cf818426b192b9d0>>
+ * @generated SignedSource<<53962998f74c8710741b0c5da1c510e4>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -163,13 +163,6 @@ return {
                     "alias": null,
                     "args": null,
                     "kind": "ScalarField",
-                    "name": "senderName",
-                    "storageKey": null
-                  },
-                  {
-                    "alias": null,
-                    "args": null,
-                    "kind": "ScalarField",
                     "name": "senderID",
                     "storageKey": null
                   },
@@ -208,12 +201,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "de11616557f1a8db37668e04a4060447",
+    "cacheID": "609663c73014f2c68314ae0f914381bb",
     "id": null,
     "metadata": {},
     "name": "MessageInputMutation",
     "operationKind": "mutation",
-    "text": "mutation MessageInputMutation(\n  $input: SendMessageInput!\n) {\n  sendMessage(input: $input) {\n    messageEdge {\n      cursor\n      node {\n        ...MessageItem_data\n        id\n      }\n    }\n  }\n}\n\nfragment MessageItem_data on Message {\n  id\n  text\n  senderName\n  senderID\n  creationDate\n}\n"
+    "text": "mutation MessageInputMutation(\n  $input: SendMessageInput!\n) {\n  sendMessage(input: $input) {\n    messageEdge {\n      cursor\n      node {\n        ...MessageItem_data\n        id\n      }\n    }\n  }\n}\n\nfragment MessageItem_data on Message {\n  id\n  text\n  senderID\n  creationDate\n}\n"
   }
 };
 })();

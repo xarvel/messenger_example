@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<bb0be11d8443521019d2aae4a2adb26d>>
+ * @generated SignedSource<<c0d5628f4b57d028c7bc68c3f6202d55>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -16,7 +16,7 @@ export type MessagesListPaginationQuery$variables = {
   cursor?: string | null | undefined;
 };
 export type MessagesListPaginationQuery$data = {
-  readonly " $fragmentSpreads": FragmentRefs<"MessagesList_query">;
+  readonly " $fragmentSpreads": FragmentRefs<"MessagesList_messages">;
 };
 export type MessagesListPaginationQuery = {
   response: MessagesListPaginationQuery$data;
@@ -81,7 +81,7 @@ return {
           }
         ],
         "kind": "FragmentSpread",
-        "name": "MessagesList_query"
+        "name": "MessagesList_messages"
       }
     ],
     "type": "Query",
@@ -96,7 +96,7 @@ return {
       {
         "alias": null,
         "args": (v2/*: any*/),
-        "concreteType": "PaginatedMessage",
+        "concreteType": "MessageConnection",
         "kind": "LinkedField",
         "name": "messages",
         "plural": false,
@@ -136,13 +136,6 @@ return {
                     "args": null,
                     "kind": "ScalarField",
                     "name": "text",
-                    "storageKey": null
-                  },
-                  {
-                    "alias": null,
-                    "args": null,
-                    "kind": "ScalarField",
-                    "name": "senderName",
                     "storageKey": null
                   },
                   {
@@ -214,16 +207,16 @@ return {
     ]
   },
   "params": {
-    "cacheID": "b18fd69ac5ab5ff0bbc2ade9c7bbc84d",
+    "cacheID": "4c885b626508c23c377d2fb86df20514",
     "id": null,
     "metadata": {},
     "name": "MessagesListPaginationQuery",
     "operationKind": "query",
-    "text": "query MessagesListPaginationQuery(\n  $chatID: ID!\n  $count: Int = 10\n  $cursor: String\n) {\n  ...MessagesList_query_45fdEv\n}\n\nfragment MessageItem_data on Message {\n  id\n  text\n  senderName\n  senderID\n  creationDate\n}\n\nfragment MessagesList_query_45fdEv on Query {\n  messages(last: $count, before: $cursor, chatID: $chatID) {\n    edges {\n      cursor\n      node {\n        ...MessageItem_data\n        id\n        __typename\n      }\n    }\n    pageInfo {\n      hasPreviousPage\n      startCursor\n    }\n  }\n}\n"
+    "text": "query MessagesListPaginationQuery(\n  $chatID: ID!\n  $count: Int = 10\n  $cursor: String\n) {\n  ...MessagesList_messages_45fdEv\n}\n\nfragment MessageItem_data on Message {\n  id\n  text\n  senderID\n  creationDate\n}\n\nfragment MessagesList_messages_45fdEv on Query {\n  messages(last: $count, before: $cursor, chatID: $chatID) {\n    edges {\n      cursor\n      node {\n        ...MessageItem_data\n        id\n        __typename\n      }\n    }\n    pageInfo {\n      hasPreviousPage\n      startCursor\n    }\n  }\n}\n"
   }
 };
 })();
 
-(node as any).hash = "248c360ebf052978b3c3ba4acbe15ea8";
+(node as any).hash = "9bdc8dd139b4d631ffca90abf0250fe5";
 
 export default node;

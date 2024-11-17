@@ -1,22 +1,25 @@
 /* eslint prettier/prettier: ["error", { "printWidth": 60 }] */
 
-import React, { FC, useRef } from "react";
+import React, { FC } from "react";
 import { FlatList } from "react-native";
 import {
   graphql,
+  useFragment,
   usePaginationFragment,
 } from "react-relay";
 import { MessageItem } from "@/src/MessageItem";
-import { MessagesList_query$key } from "@/src/__generated__/MessagesList_query.graphql";
+import { MessagesList_messages$key } from "@/src/__generated__/MessagesList_messages.graphql";
+import { palette } from "@/src/palette";
+import { MessagesList_meta$key } from "@/src/__generated__/MessagesList_meta.graphql";
 
 type MessagesListProps = {
-  queryRef: MessagesList_query$key;
+  messagesRef: MessagesList_messages$key;
+  metaRef: MessagesList_meta$key;
   chunkSize: number;
-  userID: string;
 };
 
-const query = graphql`
-  fragment MessagesList_query on Query
+const messagesQuery = graphql`
+  fragment MessagesList_messages on Query
   @argumentDefinitions(
     chatID: { type: "ID!" }
     cursor: { type: "String" }
@@ -38,28 +41,56 @@ const query = graphql`
   }
 `;
 
+const metaInfoQuery = graphql`
+  fragment MessagesList_meta on Query
+  @argumentDefinitions(chatID: { type: "ID!" }) {
+    viewer {
+      id
+    }
+    chat(id: $chatID) {
+      participants {
+        id
+        name
+      }
+    }
+  }
+`;
+
 export const MessagesList: FC<MessagesListProps> = ({
-  queryRef,
+  messagesRef,
   chunkSize,
-  userID,
+  metaRef,
 }) => {
   const { data, refetch, loadPrevious, hasPrevious } =
-    usePaginationFragment(query, queryRef);
+    usePaginationFragment(messagesQuery, messagesRef);
 
-  console.log("data", data.messages.edges);
+  const { viewer, chat } = useFragment(
+    metaInfoQuery,
+    metaRef,
+  );
 
-  const flatListRef = useRef(null);
+  const NamesMap = chat.participants.reduce(
+    (acc, curr) => {
+      acc[curr.id] = curr.name;
+      return acc;
+    },
+    {} as Record<string, string>,
+  );
+
+  const getSide = (userID: string) =>
+    userID !== viewer.id ? "left" : "right";
+
+  const getName = (userID: string) => NamesMap[userID];
 
   return (
     <FlatList
-      ref={flatListRef}
       inverted
       refreshing={false}
       contentContainerStyle={{
         paddingBottom: 50,
       }}
       style={{
-        backgroundColor: "#EFF5FB",
+        backgroundColor: palette.chatBackground,
       }}
       onEndReachedThreshold={0.2}
       onEndReached={() => {
@@ -76,7 +107,8 @@ export const MessagesList: FC<MessagesListProps> = ({
       data={data.messages.edges}
       renderItem={({ item }) => (
         <MessageItem
-          currentUserID={userID}
+          getSide={getSide}
+          getName={getName}
           dataRef={item.node}
         />
       )}

@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<7c8284ce8c87fe6406aef12fe309b1ef>>
+ * @generated SignedSource<<d9daaeda60f48e0dc8caa6b573514960>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -97,13 +97,6 @@ return {
             "alias": null,
             "args": null,
             "kind": "ScalarField",
-            "name": "senderName",
-            "storageKey": null
-          },
-          {
-            "alias": null,
-            "args": null,
-            "kind": "ScalarField",
             "name": "senderID",
             "storageKey": null
           },
@@ -120,12 +113,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "6b1fc71cb3a198f1729ae8c14419cc13",
+    "cacheID": "8f5708d985a9c469bb163f5c8f2e9af9",
     "id": null,
     "metadata": {},
     "name": "useMessageUpdatedSubscription",
     "operationKind": "subscription",
-    "text": "subscription useMessageUpdatedSubscription(\n  $chatID: String!\n) {\n  messageUpdated(chatID: $chatID) {\n    ...MessageItem_data\n    id\n  }\n}\n\nfragment MessageItem_data on Message {\n  id\n  text\n  senderName\n  senderID\n  creationDate\n}\n"
+    "text": "subscription useMessageUpdatedSubscription(\n  $chatID: String!\n) {\n  messageUpdated(chatID: $chatID) {\n    ...MessageItem_data\n    id\n  }\n}\n\nfragment MessageItem_data on Message {\n  id\n  text\n  senderID\n  creationDate\n}\n"
   }
 };
 })();

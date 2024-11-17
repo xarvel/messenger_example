@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<f3116ae743911e14f9d81dd9653d16de>>
+ * @generated SignedSource<<ea87c26f467c61cbdc060f8059ff86f8>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -14,7 +14,6 @@ export type MessageItem_data$data = {
   readonly creationDate: any;
   readonly id: string;
   readonly senderID: string;
-  readonly senderName: string;
   readonly text: string;
   readonly " $fragmentType": "MessageItem_data";
 };
@@ -47,13 +46,6 @@ const node: ReaderFragment = {
       "alias": null,
       "args": null,
       "kind": "ScalarField",
-      "name": "senderName",
-      "storageKey": null
-    },
-    {
-      "alias": null,
-      "args": null,
-      "kind": "ScalarField",
       "name": "senderID",
       "storageKey": null
     },
@@ -69,6 +61,6 @@ const node: ReaderFragment = {
   "abstractKey": null
 };
 
-(node as any).hash = "2a311ce8c7c9bd9e08bb84abaaca15fb";
+(node as any).hash = "12d6032119da89e16d8b74f317235e1c";
 
 export default node;

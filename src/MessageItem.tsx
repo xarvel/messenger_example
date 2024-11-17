@@ -5,35 +5,44 @@ import { palette } from "@/src/palette";
 
 type MessageItemProps = {
   dataRef: any;
-  currentUserID: string;
+  getSide: (userID: string) => "left" | "right";
+  getName: (userID: string) => string;
 };
+
+const sideMap = <A, B>(left: A, right: B) => ({
+  left,
+  right,
+});
+
+const printMessageTime = (date: Date) =>
+  new Date(date).toLocaleTimeString([], {
+    hour: "2-digit",
+    minute: "2-digit",
+  });
 
 export const MessageItem: FC<MessageItemProps> = ({
   dataRef,
-  currentUserID,
+  getSide,
+  getName,
 }) => {
   const data = useFragment(
     graphql`
       fragment MessageItem_data on Message {
         id
         text
-        senderName
         senderID
         creationDate
       }
     `,
     dataRef,
   );
-
-  const side = data.senderID !== currentUserID ? "left" : "right";
-
-  const backgroundColor = side !== "left" ? "#344054" : palette.white;
-  const textColor = side !== "left" ? palette.textWhite : palette.textBlack;
+  const side = getSide(data.senderID);
+  const backgroundColor = sideMap(palette.white, "#344054")[side];
+  const textColor = sideMap(palette.textBlack, palette.textWhite)[side];
+  const senderName = getName(data.senderID);
 
   return (
-    <View
-      style={[styles.container, side === "right" ? styles.right : styles.left]}
-    >
+    <View style={[styles.container, sideMap(styles.left, styles.right)[side]]}>
       <View
         style={[
           styles.messageContainer,
@@ -55,16 +64,14 @@ export const MessageItem: FC<MessageItemProps> = ({
         style={[
           styles.metaContainer,
           {
-            justifyContent: side === "left" ? "flex-start" : "flex-end",
+            justifyContent: sideMap("flex-start" as const, "flex-end" as const)[
+              side
+            ],
           },
         ]}
       >
         <Text style={styles.metaText}>
-          {data.senderName}{" "}
-          {new Date(data.creationDate).toLocaleTimeString([], {
-            hour: "2-digit",
-            minute: "2-digit",
-          })}
+          {`${senderName} ${printMessageTime(data.creationDate)}`}
         </Text>
       </View>
     </View>

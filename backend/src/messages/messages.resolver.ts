@@ -151,7 +151,7 @@ export class MessagesResolver {
   @Mutation((returns) => RemoveMessageResponse)
   async removeMessage(
     @Context() context: any,
-    @Args('id',  { type: () => ID }) id: string,
+    @Args('id', { type: () => ID }) id: string,
   ): Promise<RemoveMessageResponse> {
     const { user } = context;
 

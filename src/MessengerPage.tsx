@@ -25,10 +25,8 @@ export const MessengerPage: FC<MessengerChatProps> = ({ chatID }) => {
   const query = useLazyLoadQuery<MessengerPageQuery>(
     graphql`
       query MessengerPageQuery($chatID: ID!) {
-        viewer {
-          id
-        }
-        ...MessagesList_query @arguments(chatID: $chatID)
+        ...MessagesList_meta @arguments(chatID: $chatID)
+        ...MessagesList_messages @arguments(chatID: $chatID)
       }
     `,
     {
@@ -45,7 +43,7 @@ export const MessengerPage: FC<MessengerChatProps> = ({ chatID }) => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <MessagesList queryRef={query} chunkSize={10} userID={query.viewer.id} />
+      <MessagesList messagesRef={query} metaRef={query} chunkSize={10} />
       <MessageInput connectionID={connectionID} chatID={chatID} />
     </SafeAreaView>
   );
