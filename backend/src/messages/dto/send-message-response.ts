@@ -1,5 +1,5 @@
 import { Field, ObjectType } from '@nestjs/graphql';
-import { MessageEdge } from "./paginated-message";
+import { MessageEdge } from "./message-connection";
 
 @ObjectType()
 export class SendMessageResponse {

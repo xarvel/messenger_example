@@ -13,7 +13,7 @@ import { SendMessageInput } from './dto/send-message-input';
 import { MessagesArgs } from './dto/messages.args';
 import { Message } from './models/message.model';
 import { encode, MessagesService } from './messages.service';
-import { MessageEdge, PaginatedMessage } from './dto/paginated-message';
+import { MessageEdge, MessageConnection } from './dto/message-connection';
 import { ChatsService } from '../chats/chats.service';
 import { SendMessageResponse } from './dto/send-message-response';
 import { UsersService } from '../users/users.service';
@@ -40,11 +40,11 @@ export class MessagesResolver {
   ) {}
 
   @UseGuards(new AuthGuard())
-  @Query((returns) => PaginatedMessage)
+  @Query((returns) => MessageConnection)
   async messages(
     @Context() context: any,
     @Args() messagesArgs: MessagesArgs,
-  ): Promise<PaginatedMessage> {
+  ): Promise<MessageConnection> {
     if (!context.user) {
       throw new ForbiddenException();
     }

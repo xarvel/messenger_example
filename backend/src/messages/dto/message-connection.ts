@@ -6,4 +6,4 @@ import { ObjectType } from '@nestjs/graphql';
 export class MessageEdge extends Edge(Message) {}
 
 @ObjectType()
-export class PaginatedMessage extends Paginated(MessageEdge) {}
+export class MessageConnection extends Paginated(MessageEdge) {}
