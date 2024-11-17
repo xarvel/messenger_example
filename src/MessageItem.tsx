@@ -1,6 +1,7 @@
 import React, { FC } from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { useFragment, graphql } from "react-relay";
+import { palette } from "@/src/palette";
 
 type MessageItemProps = {
   dataRef: any;
@@ -26,8 +27,8 @@ export const MessageItem: FC<MessageItemProps> = ({
 
   const side = data.senderID !== currentUserID ? "left" : "right";
 
-  const backgroundColor = side !== "left" ? "#344054" : "#ffffff";
-  const textColor = side !== "left" ? "#F8F9F9" : "#333333";
+  const backgroundColor = side !== "left" ? "#344054" : palette.white;
+  const textColor = side !== "left" ? palette.textWhite : palette.textBlack;
 
   return (
     <View

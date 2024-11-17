@@ -46,7 +46,7 @@ export const MessagesList: FC<MessagesListProps> = ({
   const { data, refetch, loadPrevious, hasPrevious } =
     usePaginationFragment(query, queryRef);
 
-  console.log('data', data.messages.edges);
+  console.log("data", data.messages.edges);
 
   const flatListRef = useRef(null);
 

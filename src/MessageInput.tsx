@@ -2,6 +2,7 @@ import React, { FC, useState } from "react";
 import { Button, StyleSheet, TextInput, View } from "react-native";
 import { useMutation, graphql } from "react-relay";
 import { MessageInputMutation } from "@/src/__generated__/MessageInputMutation.graphql";
+import { palette } from "@/src/palette";
 
 type MessageInputProps = {
   connectionID: string;
@@ -42,7 +43,7 @@ export const MessageInput: FC<MessageInputProps> = ({
       onError: (error) => {
         console.log("error", error);
       },
-      onUnsubscribe: ()=> {},
+      onUnsubscribe: () => {},
       onCompleted: (response, errors) => {
         console.log("response", response);
         setText("");
@@ -57,13 +58,7 @@ export const MessageInput: FC<MessageInputProps> = ({
         placeholder="Сообщение..."
         value={text}
         onChangeText={setText}
-        style={{
-          padding: 10,
-          overflow: "visible",
-          color: "#000",
-          flex: 1,
-          flexGrow: 1,
-        }}
+        style={styles.input}
       />
 
       <View
@@ -79,9 +74,16 @@ export const MessageInput: FC<MessageInputProps> = ({
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: "#fff",
+    backgroundColor: palette.white,
     padding: 16,
     width: "100%",
     flexDirection: "row",
+  },
+  input: {
+    padding: 10,
+    overflow: "visible",
+    color: palette.textBlack,
+    flex: 1,
+    flexGrow: 1,
   },
 });

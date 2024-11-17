@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import { SafeAreaView } from "react-native";
+import { SafeAreaView, StyleSheet } from "react-native";
 import { MessageInput } from "@/src/MessageInput";
 import { MessagesList } from "@/src/MessagesList";
 import { graphql, useLazyLoadQuery, ConnectionHandler } from "react-relay";
@@ -7,6 +7,7 @@ import { MessengerChatQuery } from "@/src/__generated__/MessengerChatQuery.graph
 import { useMessageAddedSubscription } from "@/src/useMessageAddedSubscription";
 import { useMessageRemovedSubscription } from "@/src/useMessageRemovedSubscription";
 import { useMessageUpdatedSubscription } from "@/src/useMessageUpdatedSubscription";
+import { palette } from "@/src/palette";
 
 type MessengerChatProps = {
   chatID: string;
@@ -43,14 +44,16 @@ export const MessengerPage: FC<MessengerChatProps> = ({ chatID }) => {
   useMessageUpdatedSubscription(chatID);
 
   return (
-    <SafeAreaView
-      style={{
-        flex: 1,
-        backgroundColor: "#fff",
-      }}
-    >
+    <SafeAreaView style={styles.container}>
       <MessagesList queryRef={query} chunkSize={10} userID={query.viewer.id} />
       <MessageInput connectionID={connectionID} chatID={chatID} />
     </SafeAreaView>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: palette.white,
+  },
+});
