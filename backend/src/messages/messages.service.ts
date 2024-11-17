@@ -51,7 +51,7 @@ export class MessagesService {
     );
 
     const filtered = sortedList.filter(
-      (message) => message.creationDate <= cursor,
+      (message) => message.creationDate < cursor,
     );
 
     const result = filtered.slice(
@@ -73,7 +73,7 @@ export class MessagesService {
       endCursor = encode(endDate.toISOString());
 
       hasPreviousPage = sortedList.some(
-        (message) => message.creationDate < endDate,
+        (message) => message.creationDate < startDate,
       );
     }
 
