@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<de1801f0607aa2c34fbe40bc7667fd94>>
+ * @generated SignedSource<<a1cf2ffd10c18207a87bde601d9e3cc4>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -9,16 +9,16 @@
 // @ts-nocheck
 
 import { ConcreteRequest } from 'relay-runtime';
-export type useMessageRemovedSubscriptionSubscription$variables = {
+export type useMessageRemovedSubscription$variables = {
   chatID: string;
   connections: ReadonlyArray<string>;
 };
-export type useMessageRemovedSubscriptionSubscription$data = {
-  readonly messageRemoved: ReadonlyArray<string | null | undefined>;
+export type useMessageRemovedSubscription$data = {
+  readonly messageRemoved: ReadonlyArray<string>;
 };
-export type useMessageRemovedSubscriptionSubscription = {
-  response: useMessageRemovedSubscriptionSubscription$data;
-  variables: useMessageRemovedSubscriptionSubscription$variables;
+export type useMessageRemovedSubscription = {
+  response: useMessageRemovedSubscription$data;
+  variables: useMessageRemovedSubscription$variables;
 };
 
 const node: ConcreteRequest = (function(){
@@ -53,7 +53,7 @@ return {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Fragment",
     "metadata": null,
-    "name": "useMessageRemovedSubscriptionSubscription",
+    "name": "useMessageRemovedSubscription",
     "selections": [
       (v2/*: any*/)
     ],
@@ -64,7 +64,7 @@ return {
   "operation": {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Operation",
-    "name": "useMessageRemovedSubscriptionSubscription",
+    "name": "useMessageRemovedSubscription",
     "selections": [
       (v2/*: any*/),
       {
@@ -86,16 +86,16 @@ return {
     ]
   },
   "params": {
-    "cacheID": "a57dc59b0bb1543772dda2d674e91b59",
+    "cacheID": "b378e6d384e871de3c400933f22e149d",
     "id": null,
     "metadata": {},
-    "name": "useMessageRemovedSubscriptionSubscription",
+    "name": "useMessageRemovedSubscription",
     "operationKind": "subscription",
-    "text": "subscription useMessageRemovedSubscriptionSubscription(\n  $chatID: String!\n) {\n  messageRemoved(chatID: $chatID)\n}\n"
+    "text": "subscription useMessageRemovedSubscription(\n  $chatID: String!\n) {\n  messageRemoved(chatID: $chatID)\n}\n"
   }
 };
 })();
 
-(node as any).hash = "4c9d11e84b7d4ef6c8f1ca0eaa50e644";
+(node as any).hash = "71f6aeb038ee9a6975ebeeeed4bead3d";
 
 export default node;

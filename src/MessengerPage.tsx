@@ -4,9 +4,9 @@ import { MessageInput } from "@/src/MessageInput";
 import { MessagesList } from "@/src/MessagesList";
 import { graphql, useLazyLoadQuery, ConnectionHandler } from "react-relay";
 import { MessengerPageQuery } from "./__generated__/MessengerPageQuery.graphql";
-import { useMessageAddedSubscription } from "@/src/useMessageAddedSubscription";
-import { useMessageRemovedSubscription } from "@/src/useMessageRemovedSubscription";
-import { useMessageUpdatedSubscription } from "@/src/useMessageUpdatedSubscription";
+import { useMessageAdded } from "@/src/useMessageAdded";
+import { useMessageRemoved } from "@/src/useMessageRemoved";
+import { useMessageUpdated } from "@/src/useMessageUpdated";
 import { palette } from "@/src/palette";
 
 type MessengerChatProps = {
@@ -39,9 +39,9 @@ export const MessengerPage: FC<MessengerChatProps> = ({ chatID }) => {
     },
   );
 
-  useMessageAddedSubscription(chatID, connectionID);
-  useMessageRemovedSubscription(chatID, connectionID);
-  useMessageUpdatedSubscription(chatID);
+  useMessageAdded(chatID, connectionID);
+  useMessageRemoved(chatID, connectionID);
+  useMessageUpdated(chatID);
 
   return (
     <SafeAreaView style={styles.container}>

@@ -1,13 +1,15 @@
+/* eslint prettier/prettier: ["error", { "printWidth": 60 }] */
+
 import { graphql, useSubscription } from "react-relay";
 import { useMemo } from "react";
 import { GraphQLSubscriptionConfig } from "relay-runtime";
-import { useMessageAddedSubscriptionSubscription } from "./__generated__/useMessageAddedSubscriptionSubscription.graphql";
+import { useMessageAddedSubscription as SubscriptionType } from "./__generated__/useMessageAddedSubscription.graphql";
 
-export const useMessageAddedSubscription = (
+export const useMessageAdded = (
   chatID: string,
   connectionID: string,
 ) => {
-  const config: GraphQLSubscriptionConfig<useMessageAddedSubscriptionSubscription> =
+  const config: GraphQLSubscriptionConfig<SubscriptionType> =
     useMemo(
       () => ({
         variables: {
@@ -15,7 +17,7 @@ export const useMessageAddedSubscription = (
           connections: [connectionID],
         },
         subscription: graphql`
-          subscription useMessageAddedSubscriptionSubscription(
+          subscription useMessageAddedSubscription(
             $chatID: String!
             $connections: [ID!]!
           ) {
