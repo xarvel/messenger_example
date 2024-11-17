@@ -198,10 +198,7 @@ export class MessagesResolver {
 
   @UseGuards(new AuthGuard())
   @Subscription((returns) => [ID], {
-    filter: (payload, variables, context) => {
-      console.log(payload, variables, context);
-      return true;
-    },
+    filter: filterRecipient,
   })
   messageRemoved(@Args('chatID') chatID: string) {
     return pubSub.asyncIterableIterator('messageRemoved');
