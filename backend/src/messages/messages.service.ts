@@ -41,13 +41,16 @@ export class MessagesService {
     return this.messages.find((message) => message.id === id);
   }
 
-  async findAll(messagesArgs: MessagesArgs) {
-    let result = [],
-      sortedList = [];
-
-    sortedList = this.messages.sort(
+  sortedMessages() {
+    return this.messages.sort(
       (b, a) => b.creationDate.getTime() - a.creationDate.getTime(),
     );
+  }
+
+  async findAll(messagesArgs: MessagesArgs) {
+    const sortedList = this.sortedMessages();
+
+    let result = [];
 
     if (messagesArgs.last) {
       const beforeCursor = messagesArgs.before
