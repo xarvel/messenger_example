@@ -36,7 +36,6 @@ const messagesQuery = graphql`
       after: $after
       chatID: $chatID
     ) @connection(key: "MessagesListQuery_messages") {
-      __id
       edges {
         cursor
         node {
@@ -67,16 +66,11 @@ export const MessagesList: FC<MessagesListProps> = ({
   chunkSize,
   metaRef,
 }) => {
-  const {
-    data,
-    refetch,
-    loadPrevious,
-    hasPrevious,
-    loadNext,
-  } = usePaginationFragment<
-    MessagesListPaginationQuery,
-    MessagesList_messages$key
-  >(messagesQuery, messagesRef);
+  const { data, loadPrevious, hasPrevious, loadNext } =
+    usePaginationFragment<
+      MessagesListPaginationQuery,
+      MessagesList_messages$key
+    >(messagesQuery, messagesRef);
 
   const { viewer, chat } = useFragment(
     metaInfoQuery,
@@ -113,13 +107,7 @@ export const MessagesList: FC<MessagesListProps> = ({
         }
       }}
       onRefresh={() => {
-        // console.log("onRefresh");
         loadNext(chunkSize);
-        // refetch({
-        //   // count: chunkSize,
-        //   // cursor: "",
-        //   // chatID: "chat1",
-        // });
       }}
       keyExtractor={(item) => item.cursor}
       data={data.messages.edges.slice().reverse()}

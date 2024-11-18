@@ -45,10 +45,6 @@ export class MessagesResolver {
     @Context() context: any,
     @Args() messagesArgs: MessagesArgs,
   ): Promise<MessageConnection> {
-    if (!context.user) {
-      throw new ForbiddenException();
-    }
-
     const chat = await this.chatsService.findOneById(messagesArgs.chatID);
 
     if (!chat) {
