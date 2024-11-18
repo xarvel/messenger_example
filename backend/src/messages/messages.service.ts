@@ -42,24 +42,46 @@ export class MessagesService {
   }
 
   async findAll(messagesArgs: MessagesArgs) {
-    const cursor = messagesArgs.before
-      ? new Date(decode(messagesArgs.before))
-      : new Date();
+    let result = [],
+      sortedList = [];
 
-    const sortedList = this.messages.sort(
+    sortedList = this.messages.sort(
       (b, a) => b.creationDate.getTime() - a.creationDate.getTime(),
     );
 
-    const filtered = sortedList.filter(
-      (message) => message.creationDate < cursor,
-    );
+    if (messagesArgs.last) {
+      const beforeCursor = messagesArgs.before
+        ? new Date(decode(messagesArgs.before))
+        : new Date();
 
-    const result = filtered.slice(
-      filtered.length >= messagesArgs.last
-        ? filtered.length - messagesArgs.last
-        : 0,
-      filtered.length,
-    );
+      const filtered = sortedList.filter(
+        (message) => message.creationDate < beforeCursor,
+      );
+
+      result = filtered.slice(
+        filtered.length >= messagesArgs.last
+          ? filtered.length - messagesArgs.last
+          : 0,
+        filtered.length,
+      );
+    }
+
+    if (messagesArgs.first) {
+      const afterCursor = messagesArgs.after
+        ? new Date(decode(messagesArgs.after))
+        : new Date(0);
+
+      const filtered = sortedList.filter(
+        (message) => message.creationDate > afterCursor,
+      );
+
+      result = filtered.slice(
+        filtered.length >= messagesArgs.first
+          ? filtered.length - messagesArgs.first
+          : 0,
+        filtered.length,
+      );
+    }
 
     let startCursor,
       endCursor,
@@ -74,6 +96,9 @@ export class MessagesService {
 
       hasPreviousPage = sortedList.some(
         (message) => message.creationDate < startDate,
+      );
+      hasNextPage = sortedList.some(
+        (message) => message.creationDate > endDate,
       );
     }
 

@@ -11,6 +11,7 @@ import { MessageItem } from "@/src/MessageItem";
 import { MessagesList_messages$key } from "@/src/__generated__/MessagesList_messages.graphql";
 import { palette } from "@/src/palette";
 import { MessagesList_meta$key } from "@/src/__generated__/MessagesList_meta.graphql";
+import { MessagesListPaginationQuery } from "@/src/__generated__/MessagesListPaginationQuery.graphql";
 
 type MessagesListProps = {
   messagesRef: MessagesList_messages$key;
@@ -22,15 +23,20 @@ const messagesQuery = graphql`
   fragment MessagesList_messages on Query
   @argumentDefinitions(
     chatID: { type: "ID!" }
-    cursor: { type: "String" }
-    count: { type: "Int", defaultValue: 20 }
+    before: { type: "String" }
+    after: { type: "String" }
+    first: { type: "Int" }
+    last: { type: "Int" }
   )
   @refetchable(queryName: "MessagesListPaginationQuery") {
     messages(
-      last: $count
-      before: $cursor
+      last: $last
+      before: $before
+      first: $first
+      after: $after
       chatID: $chatID
     ) @connection(key: "MessagesListQuery_messages") {
+      __id
       edges {
         cursor
         node {
@@ -61,8 +67,16 @@ export const MessagesList: FC<MessagesListProps> = ({
   chunkSize,
   metaRef,
 }) => {
-  const { data, refetch, loadPrevious, hasPrevious } =
-    usePaginationFragment(messagesQuery, messagesRef);
+  const {
+    data,
+    refetch,
+    loadPrevious,
+    hasPrevious,
+    loadNext,
+  } = usePaginationFragment<
+    MessagesListPaginationQuery,
+    MessagesList_messages$key
+  >(messagesQuery, messagesRef);
 
   const { viewer, chat } = useFragment(
     metaInfoQuery,
@@ -99,9 +113,13 @@ export const MessagesList: FC<MessagesListProps> = ({
         }
       }}
       onRefresh={() => {
-        refetch({
-          count: chunkSize,
-        });
+        // console.log("onRefresh");
+        loadNext(chunkSize);
+        // refetch({
+        //   // count: chunkSize,
+        //   // cursor: "",
+        //   // chatID: "chat1",
+        // });
       }}
       keyExtractor={(item) => item.cursor}
       data={data.messages.edges.slice().reverse()}

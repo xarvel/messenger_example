@@ -53,7 +53,13 @@ scalar Date
 type Query {
   viewer: Viewer!
   chat(id: ID!): Chat!
-  messages(last: Int! = 0, before: String, chatID: ID!): MessageConnection!
+  messages(
+    last: Int
+    before: String
+    first: Int
+    after: String
+    chatID: ID!
+  ): MessageConnection!
 }
 
 type Mutation {

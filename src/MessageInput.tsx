@@ -61,7 +61,7 @@ export const MessageInput: FC<MessageInputProps> = ({
           flexShrink: 0,
         }}
       >
-        <Button title="Отправить" onPress={handleSendMessage} />
+        <Button title="Отправить" disabled={!text} onPress={handleSendMessage} />
       </View>
     </View>
   );
