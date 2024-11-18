@@ -1,4 +1,4 @@
-import { ForbiddenException } from '@nestjs/common';
+import { ForbiddenException, BadRequestException } from '@nestjs/common';
 import {
   Args,
   Mutation,
@@ -59,6 +59,13 @@ export class MessagesResolver {
     @Context() context: any,
     @Args() messagesArgs: MessagesArgs,
   ): Promise<MessageConnection> {
+    if (
+      !(messagesArgs.first === null && messagesArgs.last !== null) ||
+      !(messagesArgs.last === null && messagesArgs.first !== null)
+    ) {
+      throw new BadRequestException();
+    }
+
     const chat = await this.chatsService.findOneById(messagesArgs.chatID);
 
     if (!chat) {
@@ -66,7 +73,7 @@ export class MessagesResolver {
     }
 
     const { result, hasPreviousPage, endCursor, startCursor, hasNextPage } =
-      await this.messagesService.findAll(messagesArgs);
+      await this.messagesService.getPagintated(messagesArgs);
 
     const edges = result.map(mapMessageEdge);
 

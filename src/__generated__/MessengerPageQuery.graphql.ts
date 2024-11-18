@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<455e2f732b3ac361b529f5a9283c71b5>>
+ * @generated SignedSource<<46a9ed4717f19c8e65d7a024148d1030>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -35,12 +35,7 @@ v1 = {
   "variableName": "chatID"
 },
 v2 = [
-  (v1/*: any*/),
-  {
-    "kind": "Literal",
-    "name": "last",
-    "value": 10
-  }
+  (v1/*: any*/)
 ],
 v3 = {
   "alias": null,
@@ -48,7 +43,15 @@ v3 = {
   "kind": "ScalarField",
   "name": "id",
   "storageKey": null
-};
+},
+v4 = [
+  (v1/*: any*/),
+  {
+    "kind": "Literal",
+    "name": "last",
+    "value": 10
+  }
+];
 return {
   "fragment": {
     "argumentDefinitions": (v0/*: any*/),
@@ -57,9 +60,7 @@ return {
     "name": "MessengerPageQuery",
     "selections": [
       {
-        "args": [
-          (v1/*: any*/)
-        ],
+        "args": (v2/*: any*/),
         "kind": "FragmentSpread",
         "name": "MessagesList_meta"
       },
@@ -135,7 +136,7 @@ return {
       },
       {
         "alias": null,
-        "args": (v2/*: any*/),
+        "args": (v4/*: any*/),
         "concreteType": "MessageConnection",
         "kind": "LinkedField",
         "name": "messages",
@@ -211,20 +212,6 @@ return {
                 "alias": null,
                 "args": null,
                 "kind": "ScalarField",
-                "name": "endCursor",
-                "storageKey": null
-              },
-              {
-                "alias": null,
-                "args": null,
-                "kind": "ScalarField",
-                "name": "hasNextPage",
-                "storageKey": null
-              },
-              {
-                "alias": null,
-                "args": null,
-                "kind": "ScalarField",
                 "name": "hasPreviousPage",
                 "storageKey": null
               },
@@ -237,25 +224,13 @@ return {
               }
             ],
             "storageKey": null
-          },
-          {
-            "kind": "ClientExtension",
-            "selections": [
-              {
-                "alias": null,
-                "args": null,
-                "kind": "ScalarField",
-                "name": "__id",
-                "storageKey": null
-              }
-            ]
           }
         ],
         "storageKey": null
       },
       {
         "alias": null,
-        "args": (v2/*: any*/),
+        "args": (v4/*: any*/),
         "filters": [
           "chatID"
         ],
@@ -267,16 +242,16 @@ return {
     ]
   },
   "params": {
-    "cacheID": "4f7b1c3a3d64604bd7b541e47776b21a",
+    "cacheID": "164f37c2d75b4b8461c65d524e01d44d",
     "id": null,
     "metadata": {},
     "name": "MessengerPageQuery",
     "operationKind": "query",
-    "text": "query MessengerPageQuery(\n  $chatID: ID!\n) {\n  ...MessagesList_meta_1lk4yB\n  ...MessagesList_messages_1FrYiO\n}\n\nfragment MessageItem_data on Message {\n  id\n  text\n  senderID\n  creationDate\n}\n\nfragment MessagesList_messages_1FrYiO on Query {\n  messages(last: 10, chatID: $chatID) {\n    edges {\n      cursor\n      node {\n        ...MessageItem_data\n        id\n        __typename\n      }\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n      hasPreviousPage\n      startCursor\n    }\n  }\n}\n\nfragment MessagesList_meta_1lk4yB on Query {\n  viewer {\n    currentUserID\n  }\n  chat(id: $chatID) {\n    participants {\n      id\n      name\n    }\n    id\n  }\n}\n"
+    "text": "query MessengerPageQuery(\n  $chatID: ID!\n) {\n  ...MessagesList_meta_1lk4yB\n  ...MessagesList_messages_1lk4yB\n}\n\nfragment MessageItem_data on Message {\n  id\n  text\n  senderID\n  creationDate\n}\n\nfragment MessagesList_messages_1lk4yB on Query {\n  messages(last: 10, chatID: $chatID) {\n    edges {\n      cursor\n      node {\n        ...MessageItem_data\n        id\n        __typename\n      }\n    }\n    pageInfo {\n      hasPreviousPage\n      startCursor\n    }\n  }\n}\n\nfragment MessagesList_meta_1lk4yB on Query {\n  viewer {\n    currentUserID\n  }\n  chat(id: $chatID) {\n    participants {\n      id\n      name\n    }\n    id\n  }\n}\n"
   }
 };
 })();
 
-(node as any).hash = "f183fadef78e5c6886d029f0194e9200";
+(node as any).hash = "2359affeb90d916dd0633c4040774af9";
 
 export default node;

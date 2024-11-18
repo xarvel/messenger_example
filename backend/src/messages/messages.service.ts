@@ -47,7 +47,7 @@ export class MessagesService {
     );
   }
 
-  async findAll(messagesArgs: MessagesArgs) {
+  async getPagintated(messagesArgs: MessagesArgs) {
     const sortedList = this.sortedMessages();
 
     let result = [];
