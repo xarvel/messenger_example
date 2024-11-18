@@ -12,7 +12,7 @@ import { PubSub } from 'graphql-subscriptions';
 import { SendMessageInput } from './dto/send-message-input';
 import { MessagesArgs } from './dto/messages.args';
 import { Message } from './dto/message';
-import { encode, MessagesService } from './messages.service';
+import { encode, MessageRecord, MessagesService } from './messages.service';
 import { MessageEdge, MessageConnection } from './dto/message-connection';
 import { ChatsService } from '../chats/chats.service';
 import { SendMessageResponse } from './dto/send-message-response';
@@ -29,6 +29,20 @@ const filterRecipient = (payload, variables, context) => {
       context?.user?.id === payload.userID) &&
     variables.chatID === payload.chatID
   );
+};
+
+const mapMessageEdge = (message: MessageRecord) => {
+  const messageNode: Message = {
+    id: message.id,
+    creationDate: message.creationDate,
+    text: message.text,
+    senderID: message.senderID,
+  };
+
+  return {
+    cursor: encode(message.creationDate.toISOString()),
+    node: messageNode,
+  };
 };
 
 @Resolver((of) => Message)
@@ -54,19 +68,7 @@ export class MessagesResolver {
     const { result, hasPreviousPage, endCursor, startCursor, hasNextPage } =
       await this.messagesService.findAll(messagesArgs);
 
-    const edges = result.map((message) => {
-      const messageNode: Message = {
-        id: message.id,
-        creationDate: message.creationDate,
-        text: message.text,
-        senderID: message.senderID,
-      };
-
-      return {
-        cursor: encode(message.creationDate.toISOString()),
-        node: messageNode,
-      };
-    });
+    const edges = result.map(mapMessageEdge);
 
     return {
       edges,
@@ -86,17 +88,10 @@ export class MessagesResolver {
     @Args('input') input: SendMessageInput,
   ): Promise<SendMessageResponse> {
     const { user } = context;
-    if (!user) {
-      throw new ForbiddenException();
-    }
 
     const chat = await this.chatsService.findOneById(input.chatID);
 
-    if (!chat) {
-      throw new ForbiddenException();
-    }
-
-    if (!chat.participants.includes(user.id)) {
+    if (!chat || !chat.participants.includes(user.id)) {
       throw new ForbiddenException();
     }
 
@@ -106,17 +101,7 @@ export class MessagesResolver {
       senderID: user.id,
     });
 
-    const messageNode: Message = {
-      id: message.id,
-      creationDate: message.creationDate,
-      text: message.text,
-      senderID: user.id,
-    };
-
-    const messageEdge = {
-      cursor: encode(message.creationDate.toISOString()),
-      node: messageNode,
-    };
+    const messageEdge = mapMessageEdge(message);
 
     chat.participants
       .filter((participant) => participant !== user.id)

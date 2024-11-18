@@ -12,7 +12,7 @@ type CreateMessageData = {
   chatID: string;
 };
 
-type Message = {
+export type MessageRecord = {
   id: string;
   text: string;
   senderID: string;
@@ -22,9 +22,9 @@ type Message = {
 
 @Injectable()
 export class MessagesService {
-  private messages: Message[] = [];
+  private messages: MessageRecord[] = [];
 
-  async create(data: CreateMessageData): Promise<Message> {
+  async create(data: CreateMessageData): Promise<MessageRecord> {
     const message = {
       id: uid(10),
       text: data.text,
@@ -37,7 +37,7 @@ export class MessagesService {
     return message;
   }
 
-  async findOneById(id: string): Promise<Message> {
+  async findOneById(id: string): Promise<MessageRecord> {
     return this.messages.find((message) => message.id === id);
   }
 
