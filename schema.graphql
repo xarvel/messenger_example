@@ -29,10 +29,6 @@ type SendMessageResponse {
   messageEdge: MessageEdge!
 }
 
-type RemoveMessageResponse {
-  messageID: ID!
-}
-
 type User {
   id: ID!
   name: String!
@@ -64,7 +60,8 @@ type Query {
 
 type Mutation {
   sendMessage(input: SendMessageInput!): SendMessageResponse!
-  removeMessage(id: ID!): RemoveMessageResponse!
+  removeMessages(id: ID!): [ID!]!
+  setTyping(chatID: String!): Boolean!
 }
 
 input SendMessageInput {
@@ -73,6 +70,7 @@ input SendMessageInput {
 }
 
 type Subscription {
+  isTyping(chatID: String!): MessageEdge!
   messageAdded(chatID: String!): MessageEdge!
   messageRemoved(chatID: String!): [ID!]!
   messageUpdated(chatID: String!): Message!

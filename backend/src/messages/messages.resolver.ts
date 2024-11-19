@@ -166,7 +166,7 @@ export class MessagesResolver {
   }
 
   @UseGuards(new AuthGuard())
-  @Subscription((returns) => MessageEdge, {
+  @Subscription((returns) => [ID], {
     filter: filterRecipient,
   })
   isTyping(@Args('chatID') chatID: string) {
