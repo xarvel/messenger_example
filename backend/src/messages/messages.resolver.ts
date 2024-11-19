@@ -17,7 +17,6 @@ import { MessageEdge, MessageConnection } from './dto/message-connection';
 import { ChatsService } from '../chats/chats.service';
 import { SendMessageResponse } from './dto/send-message-response';
 import { UsersService } from '../users/users.service';
-import { RemoveMessageResponse } from './dto/remove-message-response';
 import { UseGuards } from '@nestjs/common';
 import { AuthGuard } from '../auth/auth.guard';
 
@@ -123,16 +122,12 @@ export class MessagesResolver {
   }
 
   @UseGuards(new AuthGuard())
-  @Mutation((returns) => RemoveMessageResponse)
-  async removeMessage(
+  @Mutation((returns) => [ID])
+  async removeMessages(
     @Context() context: any,
     @Args('id', { type: () => ID }) id: string,
-  ): Promise<RemoveMessageResponse> {
+  ): Promise<string[]> {
     const { user } = context;
-
-    if (!user) {
-      throw new ForbiddenException();
-    }
 
     const message = await this.messagesService.findOneById(id);
 
@@ -158,9 +153,24 @@ export class MessagesResolver {
         });
       });
 
-    return {
-      messageID: removedMessageID,
-    };
+    return [removedMessageID];
+  }
+
+  @UseGuards(new AuthGuard())
+  @Mutation((returns) => Boolean)
+  async setTyping(
+    @Context() context: any,
+    @Args('chatID') chatID: string,
+  ): Promise<boolean> {
+    return true;
+  }
+
+  @UseGuards(new AuthGuard())
+  @Subscription((returns) => MessageEdge, {
+    filter: filterRecipient,
+  })
+  isTyping(@Args('chatID') chatID: string) {
+    return pubSub.asyncIterableIterator('isTyping');
   }
 
   @UseGuards(new AuthGuard())
