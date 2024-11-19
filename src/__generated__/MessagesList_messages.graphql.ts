@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<63f053035ae76632340f105de513d3a8>>
+ * @generated SignedSource<<1e2cec7eac436959dfe8f090b41a114e>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -35,35 +35,48 @@ return {
     {
       "defaultValue": null,
       "kind": "LocalArgument",
-      "name": "chatID"
-    },
-    {
-      "defaultValue": 10,
-      "kind": "LocalArgument",
-      "name": "count"
+      "name": "after"
     },
     {
       "defaultValue": null,
       "kind": "LocalArgument",
-      "name": "cursor"
+      "name": "before"
+    },
+    {
+      "defaultValue": null,
+      "kind": "LocalArgument",
+      "name": "chatID"
+    },
+    {
+      "defaultValue": null,
+      "kind": "LocalArgument",
+      "name": "first"
+    },
+    {
+      "defaultValue": null,
+      "kind": "LocalArgument",
+      "name": "last"
     }
   ],
   "kind": "Fragment",
   "metadata": {
     "connection": [
       {
-        "count": "count",
-        "cursor": "cursor",
-        "direction": "backward",
+        "count": null,
+        "cursor": null,
+        "direction": "bidirectional",
         "path": (v0/*: any*/)
       }
     ],
     "refetch": {
       "connection": {
-        "forward": null,
+        "forward": {
+          "count": "first",
+          "cursor": "after"
+        },
         "backward": {
-          "count": "count",
-          "cursor": "cursor"
+          "count": "last",
+          "cursor": "before"
         },
         "path": (v0/*: any*/)
       },
@@ -140,6 +153,20 @@ return {
               "alias": null,
               "args": null,
               "kind": "ScalarField",
+              "name": "endCursor",
+              "storageKey": null
+            },
+            {
+              "alias": null,
+              "args": null,
+              "kind": "ScalarField",
+              "name": "hasNextPage",
+              "storageKey": null
+            },
+            {
+              "alias": null,
+              "args": null,
+              "kind": "ScalarField",
               "name": "hasPreviousPage",
               "storageKey": null
             },
@@ -162,6 +189,6 @@ return {
 };
 })();
 
-(node as any).hash = "9bdc8dd139b4d631ffca90abf0250fe5";
+(node as any).hash = "525fa71a898c428420ec3acb9e8f3b8a";
 
 export default node;

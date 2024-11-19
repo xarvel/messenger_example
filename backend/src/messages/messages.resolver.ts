@@ -59,10 +59,7 @@ export class MessagesResolver {
     @Context() context: any,
     @Args() messagesArgs: MessagesArgs,
   ): Promise<MessageConnection> {
-    if (
-      !(messagesArgs.first === null && messagesArgs.last !== null) ||
-      !(messagesArgs.last === null && messagesArgs.first !== null)
-    ) {
+    if (!messagesArgs.last === !messagesArgs.first) {
       throw new BadRequestException();
     }
 

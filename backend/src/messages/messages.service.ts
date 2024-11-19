@@ -79,10 +79,10 @@ export class MessagesService {
       );
 
       result = filtered.slice(
+        0,
         filtered.length >= messagesArgs.first
-          ? filtered.length - messagesArgs.first
-          : 0,
-        filtered.length,
+          ? messagesArgs.first
+          : filtered.length,
       );
     }
 

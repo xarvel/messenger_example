@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<53962998f74c8710741b0c5da1c510e4>>
+ * @generated SignedSource<<e25a3b44f0c1cb9fad0e8ff90ef969a9>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -183,7 +183,7 @@ return {
             "alias": null,
             "args": null,
             "filters": null,
-            "handle": "prependEdge",
+            "handle": "appendEdge",
             "key": "",
             "kind": "LinkedHandle",
             "name": "messageEdge",
@@ -211,6 +211,6 @@ return {
 };
 })();
 
-(node as any).hash = "d922a5c122632376e3519af5020e8564";
+(node as any).hash = "2651aa8c010ee26c040e8d05c2fd2e37";
 
 export default node;

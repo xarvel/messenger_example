@@ -26,7 +26,7 @@ export const MessengerPage: FC<MessengerChatProps> = ({ chatID }) => {
     graphql`
       query MessengerPageQuery($chatID: ID!) {
         ...MessagesList_meta @arguments(chatID: $chatID)
-        ...MessagesList_messages @arguments(chatID: $chatID, last: 10, first: null)
+        ...MessagesList_messages @arguments(chatID: $chatID, last: 10)
       }
     `,
     {
