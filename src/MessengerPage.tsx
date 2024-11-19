@@ -37,7 +37,7 @@ export const MessengerPage: FC<MessengerChatProps> = ({ chatID }) => {
     },
   );
 
-  // useMessageAdded(chatID, connectionID);
+  useMessageAdded(chatID, connectionID);
   useMessageRemoved(chatID, connectionID);
   useMessageUpdated(chatID);
 
