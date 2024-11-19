@@ -26,7 +26,7 @@ const messagesQuery = graphql`
     before: { type: "String" }
     after: { type: "String" }
     first: { type: "Int" }
-    last: { type: "Int" }
+    last: { type: "Int", defaultValue: 20 }
   )
   @refetchable(queryName: "MessagesListPaginationQuery") {
     messages(

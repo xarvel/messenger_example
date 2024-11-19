@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<bd7520c48573edd73dcc2294f89de7cb>>
+ * @generated SignedSource<<f4a3326ed0a81487d3fea2037529cff5>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -48,7 +48,7 @@ var v0 = [
     "name": "first"
   },
   {
-    "defaultValue": null,
+    "defaultValue": 20,
     "kind": "LocalArgument",
     "name": "last"
   }
@@ -230,16 +230,16 @@ return {
     ]
   },
   "params": {
-    "cacheID": "ec95069dda31135aafb5a9880656458f",
+    "cacheID": "e8b3defea77036b82c4b95cc36375fad",
     "id": null,
     "metadata": {},
     "name": "MessagesListPaginationQuery",
     "operationKind": "query",
-    "text": "query MessagesListPaginationQuery(\n  $after: String\n  $before: String\n  $chatID: ID!\n  $first: Int\n  $last: Int\n) {\n  ...MessagesList_messages_z41N7\n}\n\nfragment MessageItem_data on Message {\n  id\n  text\n  senderID\n  creationDate\n}\n\nfragment MessagesList_messages_z41N7 on Query {\n  messages(last: $last, before: $before, first: $first, after: $after, chatID: $chatID) {\n    edges {\n      cursor\n      node {\n        ...MessageItem_data\n        id\n        __typename\n      }\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n      hasPreviousPage\n      startCursor\n    }\n  }\n}\n"
+    "text": "query MessagesListPaginationQuery(\n  $after: String\n  $before: String\n  $chatID: ID!\n  $first: Int\n  $last: Int = 20\n) {\n  ...MessagesList_messages_z41N7\n}\n\nfragment MessageItem_data on Message {\n  id\n  text\n  senderID\n  creationDate\n}\n\nfragment MessagesList_messages_z41N7 on Query {\n  messages(last: $last, before: $before, first: $first, after: $after, chatID: $chatID) {\n    edges {\n      cursor\n      node {\n        ...MessageItem_data\n        id\n        __typename\n      }\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n      hasPreviousPage\n      startCursor\n    }\n  }\n}\n"
   }
 };
 })();
 
-(node as any).hash = "525fa71a898c428420ec3acb9e8f3b8a";
+(node as any).hash = "b9e860deb0efde92c98c2cd915d03559";
 
 export default node;
