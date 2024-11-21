@@ -8,6 +8,7 @@ import { useMessageAdded } from "@/src/useMessageAdded";
 import { useMessageRemoved } from "@/src/useMessageRemoved";
 import { useMessageUpdated } from "@/src/useMessageUpdated";
 import { palette } from "@/src/palette";
+import { useIsTyping } from "@/src/useIsTyping";
 
 type MessengerChatProps = {
   chatID: string;
@@ -41,10 +42,23 @@ export const MessengerPage: FC<MessengerChatProps> = ({ chatID }) => {
   useMessageRemoved(chatID, connectionID);
   useMessageUpdated(chatID);
 
+  const [isTyping, setIsTyping] = useIsTyping(chatID);
+
+  console.log("isTyping", isTyping);
+
   return (
     <SafeAreaView style={styles.container}>
-      <MessagesList messagesRef={query} metaRef={query} chunkSize={20} />
-      <MessageInput connectionID={connectionID} chatID={chatID} />
+      <MessagesList
+        messagesRef={query}
+        metaRef={query}
+        chunkSize={20}
+        isTypingUser={isTyping}
+      />
+      <MessageInput
+        connectionID={connectionID}
+        chatID={chatID}
+        onType={setIsTyping}
+      />
     </SafeAreaView>
   );
 };

@@ -70,7 +70,7 @@ input SendMessageInput {
 }
 
 type Subscription {
-  isTyping(chatID: String!): MessageEdge!
+  isTyping(chatID: String!): ID!
   messageAdded(chatID: String!): MessageEdge!
   messageRemoved(chatID: String!): [ID!]!
   messageUpdated(chatID: String!): Message!

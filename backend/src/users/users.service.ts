@@ -17,7 +17,7 @@ export class UsersService {
     },
     {
       id: USER_ID_2,
-      name: 'Катя',
+      name: 'Екатерина',
     },
   ];
 

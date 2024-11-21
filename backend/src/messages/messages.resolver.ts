@@ -16,7 +16,6 @@ import { encode, MessageRecord, MessagesService } from './messages.service';
 import { MessageEdge, MessageConnection } from './dto/message-connection';
 import { ChatsService } from '../chats/chats.service';
 import { SendMessageResponse } from './dto/send-message-response';
-import { UsersService } from '../users/users.service';
 import { UseGuards } from '@nestjs/common';
 import { AuthGuard } from '../auth/auth.guard';
 
@@ -49,7 +48,6 @@ export class MessagesResolver {
   constructor(
     private readonly messagesService: MessagesService,
     private readonly chatsService: ChatsService,
-    private readonly usersService: UsersService,
   ) {}
 
   @UseGuards(new AuthGuard())
@@ -131,11 +129,7 @@ export class MessagesResolver {
 
     const message = await this.messagesService.findOneById(id);
 
-    if (!message) {
-      throw new ForbiddenException();
-    }
-
-    if (message.senderID !== user.id) {
+    if (!message || message.senderID !== user.id) {
       throw new ForbiddenException();
     }
 
@@ -162,11 +156,28 @@ export class MessagesResolver {
     @Context() context: any,
     @Args('chatID') chatID: string,
   ): Promise<boolean> {
+    const { user } = context;
+    const chat = await this.chatsService.findOneById(chatID);
+
+    if (!chat || !chat.participants.includes(user.id)) {
+      throw new ForbiddenException();
+    }
+
+    chat.participants
+      .filter((participant) => participant !== user.id)
+      .forEach((userID) => {
+        pubSub.publish('isTyping', {
+          isTyping: userID,
+          chatID: chat.id,
+          userID,
+        });
+      });
+
     return true;
   }
 
   @UseGuards(new AuthGuard())
-  @Subscription((returns) => [ID], {
+  @Subscription((returns) => ID, {
     filter: filterRecipient,
   })
   isTyping(@Args('chatID') chatID: string) {

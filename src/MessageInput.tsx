@@ -7,11 +7,13 @@ import { palette } from "@/src/palette";
 type MessageInputProps = {
   connectionID: string;
   chatID: string;
+  onType: () => void;
 };
 
 export const MessageInput: FC<MessageInputProps> = ({
   connectionID,
   chatID,
+  onType,
 }) => {
   const [commit] = useMutation<MessageInputMutation>(graphql`
     mutation MessageInputMutation(
@@ -53,6 +55,7 @@ export const MessageInput: FC<MessageInputProps> = ({
         placeholder="Сообщение..."
         value={text}
         onChangeText={setText}
+        onKeyPress={() => onType()}
         style={styles.input}
       />
 
@@ -61,7 +64,11 @@ export const MessageInput: FC<MessageInputProps> = ({
           flexShrink: 0,
         }}
       >
-        <Button title="Отправить" disabled={!text} onPress={handleSendMessage} />
+        <Button
+          title="Отправить"
+          disabled={!text}
+          onPress={handleSendMessage}
+        />
       </View>
     </View>
   );

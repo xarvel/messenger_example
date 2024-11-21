@@ -12,11 +12,13 @@ import { MessagesList_messages$key } from "@/src/__generated__/MessagesList_mess
 import { palette } from "@/src/palette";
 import { MessagesList_meta$key } from "@/src/__generated__/MessagesList_meta.graphql";
 import { MessagesListPaginationQuery } from "@/src/__generated__/MessagesListPaginationQuery.graphql";
+import { IsTypingView } from "@/src/IsTypingView";
 
 type MessagesListProps = {
   messagesRef: MessagesList_messages$key;
   metaRef: MessagesList_meta$key;
   chunkSize: number;
+  isTypingUser: string;
 };
 
 const messagesQuery = graphql`
@@ -65,6 +67,7 @@ export const MessagesList: FC<MessagesListProps> = ({
   messagesRef,
   chunkSize,
   metaRef,
+  isTypingUser,
 }) => {
   const { data, loadPrevious, hasPrevious, loadNext } =
     usePaginationFragment<
@@ -97,6 +100,11 @@ export const MessagesList: FC<MessagesListProps> = ({
       contentContainerStyle={{
         paddingBottom: 50,
       }}
+      ListHeaderComponent={
+        isTypingUser ? (
+          <IsTypingView name={getName(isTypingUser)} />
+        ) : null
+      }
       style={{
         backgroundColor: palette.chatBackground,
       }}

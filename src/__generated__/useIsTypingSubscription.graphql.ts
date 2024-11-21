@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<17e06b77e91985473d3c22be011343ba>>
+ * @generated SignedSource<<4e2a7fce0590b2fb42e2e641793a60f4>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -9,14 +9,11 @@
 // @ts-nocheck
 
 import { ConcreteRequest } from 'relay-runtime';
-import { FragmentRefs } from "relay-runtime";
 export type useIsTypingSubscription$variables = {
   chatID: string;
 };
 export type useIsTypingSubscription$data = {
-  readonly messageUpdated: {
-    readonly " $fragmentSpreads": FragmentRefs<"MessageItem_data">;
-  };
+  readonly isTyping: string;
 };
 export type useIsTypingSubscription = {
   response: useIsTypingSubscription$data;
@@ -33,9 +30,17 @@ var v0 = [
 ],
 v1 = [
   {
-    "kind": "Variable",
-    "name": "chatID",
-    "variableName": "chatID"
+    "alias": null,
+    "args": [
+      {
+        "kind": "Variable",
+        "name": "chatID",
+        "variableName": "chatID"
+      }
+    ],
+    "kind": "ScalarField",
+    "name": "isTyping",
+    "storageKey": null
   }
 ];
 return {
@@ -44,24 +49,7 @@ return {
     "kind": "Fragment",
     "metadata": null,
     "name": "useIsTypingSubscription",
-    "selections": [
-      {
-        "alias": null,
-        "args": (v1/*: any*/),
-        "concreteType": "Message",
-        "kind": "LinkedField",
-        "name": "messageUpdated",
-        "plural": false,
-        "selections": [
-          {
-            "args": null,
-            "kind": "FragmentSpread",
-            "name": "MessageItem_data"
-          }
-        ],
-        "storageKey": null
-      }
-    ],
+    "selections": (v1/*: any*/),
     "type": "Subscription",
     "abstractKey": null
   },
@@ -70,59 +58,19 @@ return {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Operation",
     "name": "useIsTypingSubscription",
-    "selections": [
-      {
-        "alias": null,
-        "args": (v1/*: any*/),
-        "concreteType": "Message",
-        "kind": "LinkedField",
-        "name": "messageUpdated",
-        "plural": false,
-        "selections": [
-          {
-            "alias": null,
-            "args": null,
-            "kind": "ScalarField",
-            "name": "id",
-            "storageKey": null
-          },
-          {
-            "alias": null,
-            "args": null,
-            "kind": "ScalarField",
-            "name": "text",
-            "storageKey": null
-          },
-          {
-            "alias": null,
-            "args": null,
-            "kind": "ScalarField",
-            "name": "senderID",
-            "storageKey": null
-          },
-          {
-            "alias": null,
-            "args": null,
-            "kind": "ScalarField",
-            "name": "creationDate",
-            "storageKey": null
-          }
-        ],
-        "storageKey": null
-      }
-    ]
+    "selections": (v1/*: any*/)
   },
   "params": {
-    "cacheID": "de126965e2a4ab4fe00c48dfd82774ed",
+    "cacheID": "b18bc20910892d8ad3bdf9b87edafc56",
     "id": null,
     "metadata": {},
     "name": "useIsTypingSubscription",
     "operationKind": "subscription",
-    "text": "subscription useIsTypingSubscription(\n  $chatID: String!\n) {\n  messageUpdated(chatID: $chatID) {\n    ...MessageItem_data\n    id\n  }\n}\n\nfragment MessageItem_data on Message {\n  id\n  text\n  senderID\n  creationDate\n}\n"
+    "text": "subscription useIsTypingSubscription(\n  $chatID: String!\n) {\n  isTyping(chatID: $chatID)\n}\n"
   }
 };
 })();
 
-(node as any).hash = "bcb9a4218e8f7108e02f73cbcc364a10";
+(node as any).hash = "3401aec8268e0fb67b2a94afdc43b245";
 
 export default node;
